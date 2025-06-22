@@ -1,0 +1,42 @@
+<p style="color: green"><%= notice %></p>
+
+<div style="max-width: 600px; margin: auto; border: 1px solid #e1e1e1; border-radius: 8px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+
+    <% if @product.image.attached? %>
+    <div style="text-align: center;">
+        <%= image_tag @product.image.variant(resize_to_limit: [500, 500]), 
+          style: "border-radius: 8px; object-fit: cover; max-width: 100%; height: auto;" %>
+    </div>
+    <% else %>
+    <div style="width: 100%; height: 300px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #999; border-radius: 8px; margin-bottom: 16px;">
+        Sem imagem
+    </div>
+    <% end %>
+
+    <h1 style="margin-top: 16px; margin-bottom: 8px; font-size: 1.8rem; border-bottom: 1px solid #eee; padding-bottom: 8px;">
+        <%= @product.nome %>
+    </h1>
+
+    <p style="font-size: 1.1rem; margin: 8px 0;">
+        <strong>Quantidade:</strong> <%= @product.quantidade %>
+    </p>
+
+    <p style="font-size: 1.1rem; margin: 8px 0;">
+        <strong>Valor:</strong> <%= number_to_currency(@product.valor, unit: "R$ ", separator: ",", delimiter: ".") %>
+    </p>
+
+</div>
+
+<div style="margin-top: 24px; display: flex; gap: 12px; justify-content: center;">
+    <%= link_to "Editar Produto", edit_product_path(@product), 
+      style: "padding: 8px 16px; background-color: #ffc107; color: black; text-decoration: none; border-radius: 6px; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2);" %>
+
+    <%= link_to "Voltar", products_path, 
+      style: "padding: 8px 16px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2);" %>
+
+    <%= button_to "Apagar", @product, 
+      method: :delete, 
+      data: { confirm: "Tem certeza que deseja apagar este produto?" },
+      form: { style: 'display: inline' },
+      style: "padding: 8px 16px; background-color: #dc3545; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2);" %>
+</div>

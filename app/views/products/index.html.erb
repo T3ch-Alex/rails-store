@@ -1,0 +1,19 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Products" %>
+
+<h1 style="display: flex; justify-content: space-between; align-items: center;">
+    Produtos
+
+    <%= link_to "+ Novo Produto", new_product_path, 
+      style: "padding: 8px 16px; background-color: #28a745; color: white; 
+              text-decoration: none; border-radius: 6px; 
+              font-weight: bold; font-size: 0.9rem;
+              box-shadow: 0 2px 5px rgba(0,0,0,0.2);" %>
+</h1>
+
+<div id="products" style="display: flex; flex-wrap: wrap; gap: 16px;">
+    <% @products.each do |product| %>
+    <%= render product %>
+    <% end %>
+</div>

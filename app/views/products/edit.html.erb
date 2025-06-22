@@ -1,0 +1,20 @@
+<% content_for :title, "Editar Produto" %>
+
+
+<div style="max-width: 600px; margin: auto; border: 1px solid #e1e1e1; border-radius: 8px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+
+    <%= render "form", product: @product %>
+
+</div>
+
+<div style="margin-top: 24px; display: flex; gap: 12px; justify-content: center;">
+    <%= link_to "Ver Produto", @product, 
+      style: "padding: 8px 16px; background-color: #007bff; color: white; 
+              text-decoration: none; border-radius: 6px; font-weight: bold; 
+              box-shadow: 0 2px 5px rgba(0,0,0,0.2);" %>
+
+    <%= link_to "Voltar", products_path, 
+      style: "padding: 8px 16px; background-color: #6c757d; color: white; 
+              text-decoration: none; border-radius: 6px; font-weight: bold; 
+              box-shadow: 0 2px 5px rgba(0,0,0,0.2);" %>
+</div>

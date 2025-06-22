@@ -1,0 +1,27 @@
+<div id="<%= dom_id product %>" class="product-card" style="border: 1px solid #e1e1e1; border-radius: 8px; padding: 16px; width: 280px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: flex; flex-direction: column; align-items: center; gap: 8px;">
+
+    <% if product.image.attached? %>
+    <%= image_tag product.image.variant(resize_to_limit: [300, 300]), style: "border-radius: 8px; object-fit: cover; width: 100%; height: auto;" %>
+    <% else %>
+    <div style="width: 100%; height: 200px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #999; border-radius: 8px;">
+        Sem imagem
+    </div>
+    <% end %>
+
+    <h2 style="font-size: 1.2rem; margin: 8px 0 4px 0; text-align: center;"><%= product.nome %></h2>
+
+    <p style="font-size: 0.9rem; color: #555; margin: 0;">
+        Quantidade: <strong><%= product.quantidade %></strong>
+    </p>
+
+    <p style="font-size: 1rem; color: #333; margin: 0;">
+        <strong><%= number_to_currency(product.valor, unit: "R$ ", separator: ",", delimiter: ".") %></strong>
+    </p>
+
+    <div style="margin-top: 12px;">
+        <%= link_to 'Ver', product, style: "padding: 6px 12px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px; margin-right: 4px;" %>
+        <%= link_to 'Editar', edit_product_path(product), style: "padding: 6px 12px; background-color: #ffc107; color: black; text-decoration: none; border-radius: 4px; margin-right: 4px;" %>
+        <%= link_to 'Apagar', product, method: :delete, style: "padding: 6px 12px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 4px;" %>
+    </div>
+
+</div>
