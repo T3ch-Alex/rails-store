@@ -1,31 +1,32 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
+  before_action :set_product, only: %i[show edit update destroy]
 
-  # GET /products or /products.json
+  # GET /products
   def index
-    @products = Product.all
+    @products = current_user.products
   end
 
-  # GET /products/1 or /products/1.json
+  # GET /products/1
   def show
   end
 
   # GET /products/new
   def new
-    @product = Product.new
+    @product = current_user.products.build
   end
 
   # GET /products/1/edit
   def edit
   end
 
-  # POST /products or /products.json
+  # POST /products
   def create
-    @product = Product.new(product_params)
+    @product = current_user.products.build(product_params)
 
     respond_to do |format|
       if @product.save
-        format.html { redirect_to @product, notice: "Product was successfully created." }
+        format.html { redirect_to @product, notice: "Produto criado com sucesso." }
         format.json { render :show, status: :created, location: @product }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -34,11 +35,11 @@ class ProductsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /products/1 or /products/1.json
+  # PATCH/PUT /products/1
   def update
     respond_to do |format|
       if @product.update(product_params)
-        format.html { redirect_to @product, notice: "Product was successfully updated." }
+        format.html { redirect_to @product, notice: "Produto atualizado com sucesso." }
         format.json { render :show, status: :ok, location: @product }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -47,24 +48,24 @@ class ProductsController < ApplicationController
     end
   end
 
-  # DELETE /products/1 or /products/1.json
+  # DELETE /products/1
   def destroy
     @product.destroy!
-
     respond_to do |format|
-      format.html { redirect_to products_path, status: :see_other, notice: "Product was successfully destroyed." }
+      format.html { redirect_to products_path, notice: "Produto apagado com sucesso.", status: :see_other }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
+    # Busca o produto do usuário atual
     def set_product
-      @product = Product.find(params.expect(:id))
+      @product = current_user.products.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
+    # Permite apenas parâmetros confiáveis
     def product_params
-      params.expect(product: [ :nome, :quantidade, :valor, :image ])
+      params.require(:product).permit(:nome, :quantidade, :valor, :image)
     end
 end

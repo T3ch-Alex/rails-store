@@ -16,10 +16,23 @@
                     <%= link_to "Produtos", products_path, class:"nav-link" %>
                 </li>
             </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Encontre seu produto..." aria-label="Search" />
-                <button class="btn btn-outline-success" type="submit">Pesquisar</button>
-            </form>
+            <div class="d-flex align-items-center gap-2">
+                <% if user_signed_in? %>
+                <span class="navbar-text text-light me-2">
+                    🔓 <strong><%= current_user.email %></strong>
+                </span>
+                <form method="post" action="<%= destroy_user_session_path %>" class="d-inline">
+                    <input type="hidden" name="_method" value="delete" />
+                    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                    <button type="submit" class="btn btn-danger btn-sm">Sair</button>
+                </form>
+                <% else %>
+                <%= link_to "Entrar", new_user_session_path, class: "btn btn-outline-light btn-sm" %>
+                <%= link_to "Criar Conta", new_user_registration_path, class: "btn btn-primary btn-sm" %>
+                <% end %>
+            </div>
         </div>
+
+
     </div>
 </nav>

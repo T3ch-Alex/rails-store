@@ -1,0 +1,31 @@
+<h2 style="text-align: center;">🔑 Login</h2>
+
+<div style="max-width: 400px; margin: auto; border: 1px solid #e1e1e1; padding: 24px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+
+    <%= form_with(model: resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+    <div>
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", style: "width: 100%; padding: 8px;" %>
+    </div>
+
+    <div style="margin-top: 12px;">
+        <%= f.label :password %><br />
+        <%= f.password_field :password, autocomplete: "current-password", style: "width: 100%; padding: 8px;" %>
+    </div>
+
+    <div style="margin-top: 12px;">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
+    </div>
+
+    <div style="margin-top: 16px;">
+        <%= f.submit "Entrar", style: "width: 100%; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;" %>
+    </div>
+    <% end %>
+
+    <div style="margin-top: 16px; text-align: center;">
+        <%= link_to "Esqueceu sua senha?", new_password_path(resource_name) %><br>
+        <%= link_to "Criar nova conta", new_registration_path(resource_name) %>
+    </div>
+</div>
